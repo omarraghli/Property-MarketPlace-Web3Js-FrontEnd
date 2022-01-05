@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { BinanceObject } from '../Interfaces/BinanceObject';
 import { BinanceService } from '../Services/binance.service';
 import { ContractService } from '../Services/contract.service';
+import {ENUM} from '../Enums/Address'
 
 @Component({
   selector: 'app-display-market-items',
@@ -10,6 +11,7 @@ import { ContractService } from '../Services/contract.service';
   styleUrls: ['./display-market-items.component.css'],
 })
 export class DisplayMarketItemsComponent implements OnInit {
+  nftContract : string = ENUM.getNFTContractAddress();
   MarketItems: any = this.fetchMarketItems();
   BinanceSubscription: Subscription;
   BinanceObject: BinanceObject[];
@@ -19,14 +21,14 @@ export class DisplayMarketItemsComponent implements OnInit {
     private contractService: ContractService,
     private binanceService: BinanceService
   ) {}
-   ngOnInit() {
-      this.getEthPrice()
-      this.interval = setInterval(() => { 
-        this.getEthPrice(); 
+  ngOnInit() {
+    this.getEthPrice();
+    this.interval = setInterval(() => {
+      this.getEthPrice();
     }, 500);
   }
 
-  getEthPrice(){
+  getEthPrice() {
     this.binanceService
       .getEthPriceFromBinance()
       .subscribe((data) => (this.BinanceObject = data));
@@ -35,7 +37,11 @@ export class DisplayMarketItemsComponent implements OnInit {
   async fetchMarketItems(): Promise<any> {
     const Items: any = await this.contractService.fetchMarketItems();
     console.log('Market Items', Items);
-    console.log('MarketSeller', Items[0].seller);
+    // console.log('MarketSeller', Items[0].seller);
     return Items;
+  }
+
+  createMarketSale( itemId: number, price: number) {
+    this.contractService.createMarketSale(this.nftContract, itemId, price);
   }
 }

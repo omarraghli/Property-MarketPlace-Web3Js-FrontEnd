@@ -6,7 +6,6 @@ import { MetaMaskInpageProvider } from '@metamask/providers';
 declare const window: any;
 declare let require: any;
 
-
 const ethereum = window.ethereum as MetaMaskInpageProvider;
 
 let tokenAbi = require('../../../SmartContracts/build/contracts/NFTMarket.json');
@@ -46,7 +45,6 @@ export class ContractService {
     return Promise.resolve(enable);
   }
 
-
   async getListingPrice() {
     // is displayed not with eth but with wei
     let that = this;
@@ -75,7 +73,9 @@ export class ContractService {
       paymentContract
         .deployed()
         .then(async function (instance) {
-          return resolve(instance.createProprety(ac,propertycontractId,{from : ac}));
+          return resolve(
+            instance.createProprety(ac, propertycontractId, { from: ac })
+          );
         })
         .catch(function (error) {
           console.log(error);
@@ -143,6 +143,29 @@ export class ContractService {
             instance.createMarketItem(address, tokenid, price, {
               from: ac,
               value: LP,
+            })
+          );
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in service call :: createMarketItem');
+        });
+    });
+  }
+  async createMarketSale(nftContract: string, itemId: number, price: number) {
+    let ac = await this.LoadAccount();
+    console.log('Load Account :: Create Item', this.account);
+    let that = this;
+    return new Promise((resolve, reject) => {
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(
+            instance.createMarketSale(nftContract, itemId, {
+              from: ac,
+              value: price * Math.pow(10, 18),
             })
           );
         })

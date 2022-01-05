@@ -12,10 +12,10 @@
       <div class="stat">
         <div class="value">Price:</div>
         <div class="type">{{item['price']}} ETH</div>
-        <div class="type">{{ item['price'] * (BinanceObject?.price || 0) }}$</div>
+        <div class="type">{{ item['price'] * (BinanceObject?.price || 0) | number: '1.0-0' }}$</div>
       </div>
       <div class="stat border">
-        <button class="btn btn-success BuyBTN">Buy</button>
+        <button class="btn btn-success BuyBTN" (click)="createMarketSale(item['itemId'] , item['price'])">Buy</button>
       </div>
     </div>
   </div>
