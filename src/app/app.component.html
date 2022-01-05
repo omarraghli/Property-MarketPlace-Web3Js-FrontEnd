@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" routerLink="MarketPlace">Proprety MarketPlace</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" (click)="Meta()"
+              >Connect to metamask</a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="AddProprety">Add Proprety </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="SellingProprety"
+              >Sell your proprety</a
+            >
+          </li>
+          <div class="form-inline my-2 my-lg-0"></div>
+        </ul>
+      </div>
+      <p class="navbar-brand">Your Current Wallet : {{ currentConnectedAccount |async }}</p>
+    </nav>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<form>
+  <div class="form-group">
+    <label for="UniqueNFTString">Proprety Contract Identifier</label>
+    <input
+      [(ngModel)]="PropretyContractIdentifier"
+      name="URICreation"
+      type="text"
+      class="form-control"
+      id="UniqueNFTString"
+      placeholder="Lbfv2QP9eYDLZcSSmaHN"
+    />
+  </div>
+
+  <!-- <button (click)="Meta()">Connect Wallet</button> -->
+  <!-- <button
+      class="btn btn-danger"
+      (click)="
+        createMarketItem('0x9cBf91fE060bcc35b573d711fd8417c3659147Ec', 1, 2)
+      "
+    >
+      Creat MarketItem
+    </button> -->
+
+  <!-- <p>{{ ListingPrice | async }}</p>
+    <p>{{ Owner | async }}</p> -->
+</form>
+<button
+  style="margin-top: 10px"
+  class="btn btn-danger"
+  (click)="CreateNFTToken(PropretyContractIdentifier)"
+>
+  Creat Item
+</button>

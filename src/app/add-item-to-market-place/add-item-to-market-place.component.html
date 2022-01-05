@@ -1,0 +1,31 @@
+<form>
+  <div class="form-group">
+    <label for="tokenId">Proprety's token ID (NFT's ID)</label>
+    <input
+      [(ngModel)]="tokenId"
+      name="URICreation"
+      type="text"
+      class="form-control"
+      id="tokenId"
+      placeholder="1784124855452456212544"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Price">Sale price (ETH) </label>
+    <input
+      type="number"
+      class="form-control"
+      id="Price"
+      [(ngModel)]="Price"
+      name="Value"
+      placeholder="Enter a ETH value"
+    />
+  </div>
+</form>
+<button
+  style="margin-top: 10px"
+  class="btn btn-danger"
+  (click)="addMarketPlaceItem(ContractAddress, tokenId, Price)"
+>
+  Creat MarketPlace Item
+</button>

@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <div *ngFor="let item of MarketItems | async;" class="card">
+    <div class="card-image"></div>
+    <div class="card-text">
+      <span class="date"></span>
+      <h2>Seller</h2>
+      <p>
+        {{ item['seller']}}
+      </p>
+    </div>
+    <div class="card-stats">
+      <div class="stat">
+        <div class="value">Price:</div>
+        <div class="type">{{item['price']}} ETH</div>
+        <div class="type">{{ item['price'] * (BinanceObject?.price || 0) }}$</div>
+      </div>
+      <div class="stat border">
+        <button class="btn btn-success BuyBTN">Buy</button>
+      </div>
+    </div>
+  </div>
+</div>
