@@ -34,7 +34,7 @@
 
 .card-image {
   grid-area: image;
-  background: url("./../../assets/imgs/682612.jpg"); 
+  background: url("./../../assets/imgs/garage.jpg"); 
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background-size: cover;

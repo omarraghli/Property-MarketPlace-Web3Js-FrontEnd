@@ -1,21 +1,41 @@
+<form class="form-inline my-2 my-lg-0">
+  <input
+    class="form-control mr-sm-2"
+    type="search"
+    placeholder="Search by seller address"
+    aria-label="Search"
+    name="sellerSearchInputeSearch"
+    [(ngModel)]="sellerSearchInputeSearch"
+  />
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchBySellerAddress(sellerSearchInputeSearch)">
+    Search
+  </button>
+</form>
 <div class="wrapper">
-  <div *ngFor="let item of MarketItems | async;" class="card">
+  <div *ngFor="let item of MarketItems | async" class="card">
     <div class="card-image"></div>
     <div class="card-text">
       <span class="date"></span>
       <h2>Seller</h2>
       <p>
-        {{ item['seller']}}
+        {{ item["seller"] }}
       </p>
     </div>
     <div class="card-stats">
       <div class="stat">
         <div class="value">Price:</div>
-        <div class="type">{{item['price']}} ETH</div>
-        <div class="type">{{ item['price'] * (BinanceObject?.price || 0) | number: '1.0-0' }}$</div>
+        <div class="type">{{ item["price"] }} ETH</div>
+        <div class="type">
+          {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
+        </div>
       </div>
       <div class="stat border">
-        <button class="btn btn-success BuyBTN" (click)="createMarketSale(item['itemId'] , item['price'])">Buy</button>
+        <button
+          class="btn btn-success BuyBTN"
+          (click)="createMarketSale(item['itemId'], item['price'])"
+        >
+          Buy
+        </button>
       </div>
     </div>
   </div>

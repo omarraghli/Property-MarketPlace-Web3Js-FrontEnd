@@ -1,14 +1,21 @@
 <form>
   <div class="form-group">
     <label for="tokenId">Proprety's token ID (NFT's ID)</label>
-    <input
+    <!-- <input
       [(ngModel)]="tokenId"
       name="URICreation"
       type="text"
       class="form-control"
       id="tokenId"
       placeholder="1784124855452456212544"
-    />
+    /> -->
+    <select name="ownerPropretyIds" class="form-select" aria-label="Default select example" [(ngModel)]="tokenId">
+      <option value="0">This contains ur tokens ID from your wallet</option>
+      <option *ngFor="let id of ownerPropretyIds | async; index as i;" [value]="id['words'][0]">
+        {{id['words'][0]}}
+      </option>
+      
+    </select>
   </div>
   <div class="form-group">
     <label for="Price">Sale price (ETH) </label>
@@ -25,7 +32,7 @@
 <button
   style="margin-top: 10px"
   class="btn btn-danger"
-  (click)="addMarketPlaceItem(ContractAddress, tokenId, Price)"
+  (click)="addMarketPlaceItem(tokenId, Price)"
 >
   Creat MarketPlace Item
 </button>

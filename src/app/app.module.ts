@@ -10,11 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { DisplayMarketItemsComponent } from './display-market-items/display-market-items.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddItemToMarketPlaceComponent } from './add-item-to-market-place/add-item-to-market-place.component';
+import { MyPropretiesComponent } from './my-propreties/my-propreties.component';
+import { CurrentSellsComponent } from './current-sells/current-sells.component';
 
 const appRoutes: Routes = [
   { path: 'AddProprety', component: AddPropertyComponent },
   { path: 'MarketPlace', component: DisplayMarketItemsComponent },
   { path: 'SellingProprety', component: AddItemToMarketPlaceComponent },
+  { path: 'MyPropreties', component: MyPropretiesComponent },
+  { path: 'CurrentSells', component: CurrentSellsComponent },
 ];
 
 @NgModule({
@@ -23,6 +27,8 @@ const appRoutes: Routes = [
     AddPropertyComponent,
     DisplayMarketItemsComponent,
     AddItemToMarketPlaceComponent,
+    MyPropretiesComponent,
+    CurrentSellsComponent,
   ],
   imports: [
     BrowserModule,

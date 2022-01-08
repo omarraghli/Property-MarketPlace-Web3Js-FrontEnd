@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Address } from 'cluster';
 import { ContractService } from './Services/contract.service';
 @Component({
   selector: 'app-root',
@@ -40,9 +39,8 @@ export class AppComponent implements OnInit {
     return contractServiceOwner;
   }
 
-  async createMarketItem(address, tokenid, price): Promise<any> {
+  async createMarketItem(tokenid, price): Promise<any> {
     const createMarketItem: any = await this.contractService.createMarketItem(
-      address,
       tokenid,
       price
     );

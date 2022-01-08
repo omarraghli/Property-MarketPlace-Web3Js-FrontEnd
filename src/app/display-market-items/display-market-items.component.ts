@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { BinanceObject } from '../Interfaces/BinanceObject';
 import { BinanceService } from '../Services/binance.service';
 import { ContractService } from '../Services/contract.service';
-import {ENUM} from '../Enums/Address'
 
 @Component({
   selector: 'app-display-market-items',
@@ -11,11 +10,11 @@ import {ENUM} from '../Enums/Address'
   styleUrls: ['./display-market-items.component.css'],
 })
 export class DisplayMarketItemsComponent implements OnInit {
-  nftContract : string = ENUM.getNFTContractAddress();
-  MarketItems: any = this.fetchMarketItems();
+  MarketItems: Promise<any> = this.fetchMarketItems();
   BinanceSubscription: Subscription;
   BinanceObject: BinanceObject[];
   interval: any;
+  sellerSearchInputeSearch: string;
 
   constructor(
     private contractService: ContractService,
@@ -37,11 +36,31 @@ export class DisplayMarketItemsComponent implements OnInit {
   async fetchMarketItems(): Promise<any> {
     const Items: any = await this.contractService.fetchMarketItems();
     console.log('Market Items', Items);
-    // console.log('MarketSeller', Items[0].seller);
     return Items;
   }
 
-  createMarketSale( itemId: number, price: number) {
-    this.contractService.createMarketSale(this.nftContract, itemId, price);
+  createMarketSale(itemId: number, price: number ) {
+    this.contractService.createMarketSale(itemId, price);
   }
+
+  async searchBySellerAddress(SellerAddress: string) {
+    console.log('befor');
+    let SelectedItems: any;
+    console.log('after');
+    let s: any = await Promise.all(await this.MarketItems);
+    let sSelectedItems: any = [];
+    for (let i = 0; i < s.length; i++) {
+      if (s[i]['seller'] == SellerAddress) {
+        sSelectedItems.push(s[i]);
+      }
+    }
+
+    if (sSelectedItems.length > 0) {
+      let tmpPromiss = Promise.resolve(sSelectedItems);
+      this.MarketItems = tmpPromiss;
+    } else {
+      console.log('seller not found');
+    }
+  }
+
 }

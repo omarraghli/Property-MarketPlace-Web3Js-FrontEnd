@@ -10,8 +10,6 @@ const ethereum = window.ethereum as MetaMaskInpageProvider;
 
 let tokenAbi = require('../../../SmartContracts/build/contracts/NFTMarket.json');
 
-let NFTAbi = require('../../../SmartContracts/build/contracts/NFT.json');
-
 @Injectable({
   providedIn: 'root',
 })
@@ -68,13 +66,13 @@ export class ContractService {
     let ac = await this.LoadAccount();
     let that = this;
     return new Promise((resolve, reject) => {
-      let paymentContract = TruffleContract(NFTAbi);
+      let paymentContract = TruffleContract(tokenAbi);
       paymentContract.setProvider(that._web3);
       paymentContract
         .deployed()
         .then(async function (instance) {
           return resolve(
-            instance.createProprety(ac, propertycontractId, { from: ac })
+            instance.createProprety(propertycontractId, { from: ac })
           );
         })
         .catch(function (error) {
@@ -120,6 +118,24 @@ export class ContractService {
     });
   }
 
+  async fetchMyPropreties(){
+    let that = this;
+    return new Promise((resolve, reject) => {
+      console.log('From', { from: this.account });
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(instance.fetchMyNFTs());
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in fetchMarketItems service call');
+        });
+    });
+  }
+
   async LoadAccount() {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     console.log('Load Account', accounts);
@@ -128,7 +144,7 @@ export class ContractService {
     return accounts[0];
   }
 
-  async createMarketItem(address, tokenid, price) {
+  async createMarketItem(tokenid, price) {
     let LP = await this.getListingPrice();
     let ac = await this.LoadAccount();
     console.log('Load Account :: Create Item', this.account);
@@ -140,7 +156,7 @@ export class ContractService {
         .deployed()
         .then(async function (instance) {
           return resolve(
-            instance.createMarketItem(address, tokenid, price, {
+            instance.createMarketItem(tokenid, price, {
               from: ac,
               value: LP,
             })
@@ -152,7 +168,7 @@ export class ContractService {
         });
     });
   }
-  async createMarketSale(nftContract: string, itemId: number, price: number) {
+  async createMarketSale(itemId: number, price: number) {
     let ac = await this.LoadAccount();
     console.log('Load Account :: Create Item', this.account);
     let that = this;
@@ -163,7 +179,7 @@ export class ContractService {
         .deployed()
         .then(async function (instance) {
           return resolve(
-            instance.createMarketSale(nftContract, itemId, {
+            instance.createMarketSale(itemId, {
               from: ac,
               value: price * Math.pow(10, 18),
             })
@@ -172,6 +188,61 @@ export class ContractService {
         .catch(function (error) {
           console.log(error);
           return reject('Error in service call :: createMarketItem');
+        });
+    });
+  }
+
+  async getownerPropretyIds() {
+    let ac = await this.LoadAccount();
+    let that = this;
+    return new Promise((resolve, reject) => {
+      //console.log('From', { from: this.account });
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(instance.getOwnerPropretyIds({from : ac}));
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in fetchMarketItems service call');
+        });
+    });
+  }
+
+  async fetchItemsCreated() {
+    let ac = await this.LoadAccount();
+    let that = this;
+    return new Promise((resolve, reject) => {
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(instance.fetchItemsCreated({from : ac}));
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in fetchMarketItems service call');
+        });
+    });
+  }
+
+  async cancelMarketSell(itemId : number) {
+    let ac = await this.LoadAccount();
+    let that = this;
+    return new Promise((resolve, reject) => {
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(instance.cancelMarketSell(itemId,{from : ac}));
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in cancelMarketSell service call');
         });
     });
   }

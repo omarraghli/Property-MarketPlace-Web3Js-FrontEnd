@@ -21,6 +21,11 @@
             >
           </li>
           <li class="nav-item active">
+            <a class="nav-link" style="cursor: pointer" routerLink="MyPropreties"
+              >Propreties bought</a
+            >
+          </li>
+          <li class="nav-item active">
             <a class="nav-link" routerLink="AddProprety">Add Proprety </a>
           </li>
           <li class="nav-item active">
@@ -28,10 +33,17 @@
               >Sell your proprety</a
             >
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="CurrentSells"
+              >Current Sells</a
+            >
+          </li>
           <div class="form-inline my-2 my-lg-0"></div>
         </ul>
       </div>
-      <p class="navbar-brand">Your Current Wallet : {{ currentConnectedAccount |async }}</p>
+      <p class="navbar-brand">
+        Your Current Wallet : {{ currentConnectedAccount | async }}
+      </p>
     </nav>
   </div>
   <div class="row" style="margin-top: 20px">

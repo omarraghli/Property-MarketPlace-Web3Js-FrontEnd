@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ENUM } from 'src/app/Enums/Address';
 import { ContractService } from '../Services/contract.service';
 
 @Component({
@@ -8,16 +7,24 @@ import { ContractService } from '../Services/contract.service';
   styleUrls: ['./add-item-to-market-place.component.css'],
 })
 export class AddItemToMarketPlaceComponent implements OnInit {
-  ContractAddress: string = ENUM.getNFTContractAddress();
-
-  tokenId: number;
+  ownerPropretyIds: Promise<any>;
+  tokenId: number =0;
 
   Price: number;
   constructor(private contractService: ContractService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ownerPropretyIds = this.getownerPropretyIds();
+  }
 
-  addMarketPlaceItem(ContractAdd: string, tokenId: number, price: number) {
-    this.contractService.createMarketItem(ContractAdd, tokenId, price);
+  addMarketPlaceItem(tokenId: number, price: number) {
+    this.contractService.createMarketItem(tokenId, price);
+  }
+
+  async getownerPropretyIds() {
+    const PropretyIds: any = await this.contractService.getownerPropretyIds();
+    let  a :Promise<any>= Promise.all(PropretyIds);
+    console.log('PropretyIds',  PropretyIds);
+    return PropretyIds;
   }
 }

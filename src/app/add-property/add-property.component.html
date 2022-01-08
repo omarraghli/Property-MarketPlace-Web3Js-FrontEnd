@@ -11,18 +11,13 @@
     />
   </div>
 
-  <!-- <button (click)="Meta()">Connect Wallet</button> -->
-  <!-- <button
-      class="btn btn-danger"
-      (click)="
-        createMarketItem('0x9cBf91fE060bcc35b573d711fd8417c3659147Ec', 1, 2)
-      "
-    >
-      Creat MarketItem
-    </button> -->
 
-  <!-- <p>{{ ListingPrice | async }}</p>
-    <p>{{ Owner | async }}</p> -->
+  <label for="propretyType">Proprety Type</label>
+  <select id="propretyType" name="PropretyType" class="form-select" aria-label="Default select example" [(ngModel)]="propretyType">
+    <option value="villa">Villa</option>
+    <option value="apartement">Apartement </option>
+    <option value="garage">Garage</option>
+  </select>
 </form>
 <button
   style="margin-top: 10px"

@@ -7,7 +7,7 @@ import { ContractService } from '../Services/contract.service';
 })
 export class AddPropertyComponent implements OnInit {
   PropretyContractIdentifier: string = '';
-
+  propretyType: string = '';
   constructor(private contractService: ContractService) {}
 
   ngOnInit(): void {}
