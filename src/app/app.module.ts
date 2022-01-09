@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContractService } from './Services/contract.service';
-import { RouterModule, Routes } from '@angular/router';
 import { AddPropertyComponent } from './add-property/add-property.component';
 import { FormsModule } from '@angular/forms';
 import { DisplayMarketItemsComponent } from './display-market-items/display-market-items.component';
@@ -12,14 +11,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddItemToMarketPlaceComponent } from './add-item-to-market-place/add-item-to-market-place.component';
 import { MyPropretiesComponent } from './my-propreties/my-propreties.component';
 import { CurrentSellsComponent } from './current-sells/current-sells.component';
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const appRoutes: Routes = [
-  { path: 'AddProprety', component: AddPropertyComponent },
-  { path: 'MarketPlace', component: DisplayMarketItemsComponent },
-  { path: 'SellingProprety', component: AddItemToMarketPlaceComponent },
-  { path: 'MyPropreties', component: MyPropretiesComponent },
-  { path: 'CurrentSells', component: CurrentSellsComponent },
-];
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { InterfaceUserComponent } from './interface-user/interface-user.component';
+import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +40,30 @@ const appRoutes: Routes = [
     AddItemToMarketPlaceComponent,
     MyPropretiesComponent,
     CurrentSellsComponent,
+    FooterComponent,
+    NavbarComponent,
+    SignInFormComponent,
+    HomePageComponent,
+    InterfaceUserComponent,
+    AllTransactionsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatCardModule,
+    MatTabsModule,
+    MatInputModule,
+    MatCheckboxModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
   providers: [ContractService],
   bootstrap: [AppComponent],

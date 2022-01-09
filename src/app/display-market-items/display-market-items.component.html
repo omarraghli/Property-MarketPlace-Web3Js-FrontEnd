@@ -1,4 +1,4 @@
-<form class="form-inline my-2 my-lg-0">
+<form class="search-bar">
   <input
     class="form-control mr-sm-2"
     type="search"
@@ -7,8 +7,8 @@
     name="sellerSearchInputeSearch"
     [(ngModel)]="sellerSearchInputeSearch"
   />
-  <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchBySellerAddress(sellerSearchInputeSearch)">
-    Search
+  <button class="search-btn" (click)="searchBySellerAddress(sellerSearchInputeSearch)">
+     <span>Search</span>
   </button>
 </form>
 <div class="wrapper">
@@ -17,7 +17,7 @@
     <div class="card-text">
       <span class="date"></span>
       <h2>Seller</h2>
-      <p>
+      <p style="overflow-wrap: break-word;">
         {{ item["seller"] }}
       </p>
     </div>
@@ -29,9 +29,9 @@
           {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
         </div>
       </div>
-      <div class="stat border">
+      <div>
         <button
-          class="btn btn-success BuyBTN"
+          class="button-36"
           (click)="createMarketSale(item['itemId'], item['price'])"
         >
           Buy

@@ -1,31 +1,13 @@
-
-  <div class="wrapper">
-    <div *ngFor="let propretie of myPropreties | async" class="card">
-      <div class="card-image"></div>
-      <div class="card-text">
-        <span class="date"></span>
-        <h2>Seller</h2>
-        <p>
-          {{ propretie["seller"] }}
-        </p>
-      </div>
-      <div class="card-stats">
-        <div class="stat">
-          <div class="value">Price:</div>
-          <div class="type">{{ propretie["price"] }} ETH</div>
-          <div class="type">
-            {{ propretie["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
-          </div>
-        </div>
-        <div class="stat border">
-          <button
-            class="btn btn-success BuyBTN"
-            (click)="createMarketSale(item['itemId'], item['price'])"
-          >
-            Buy
-          </button>
-        </div>
-      </div>
+<div class="wrapper">
+  <div *ngFor="let propretie of myPropreties | async" class="card">
+    <div class="card-image"></div>
+    <div class="card-text">
+      <span class="date"></span>
+      <p>Price</p>
+      <p>{{ propretie["price"] }} ETH</p>
+      <p>or</p>
+      <p>
+        {{ propretie["price"] * (BinanceObject?.price || 0) | number: "1.0-0"}}$
+      </p>
     </div>
-  </div>
-  
+</div>

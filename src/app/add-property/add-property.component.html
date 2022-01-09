@@ -1,4 +1,4 @@
-<form>
+<!-- <form>
   <div class="form-group">
     <label for="UniqueNFTString">Proprety Contract Identifier</label>
     <input
@@ -25,4 +25,70 @@
   (click)="CreateNFTToken(PropretyContractIdentifier)"
 >
   Creat Item
-</button>
+</button> -->
+
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Add Real Estate">
+        <mat-card-content>
+          <form
+            [formGroup]="profileForm"
+            #FormSignIn="ngForm"
+            (ngSubmit)="onSubmit()"
+            action=""
+          >
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Area"
+                required
+                name="area"
+                formControlName="area"
+              />
+              <mat-icon matSuffix>crop</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Select your real estate</mat-label>
+              <select matNativeControl formControlName="typeOfProprety">
+                <option label=""></option>
+                <option value="Apartement">Appartement</option>
+                <option value="Office">Office</option>
+                <option value="House">House</option>
+                <option value="Villa">Villa</option>
+                <option value="Land">Land</option>
+              </select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Adresse"
+                required
+                name="adresse"
+                formControlName="adresse"
+              />
+              <mat-icon matSuffix>home</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Titre"
+                required
+                name="titre"
+                formControlName="titre"
+              />
+              <mat-icon matSuffix>home</mat-icon>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="login-button">
+              Add
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

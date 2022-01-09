@@ -1,14 +1,6 @@
-<form>
+<!-- <form>
   <div class="form-group">
     <label for="tokenId">Proprety's token ID (NFT's ID)</label>
-    <!-- <input
-      [(ngModel)]="tokenId"
-      name="URICreation"
-      type="text"
-      class="form-control"
-      id="tokenId"
-      placeholder="1784124855452456212544"
-    /> -->
     <select name="ownerPropretyIds" class="form-select" aria-label="Default select example" [(ngModel)]="tokenId">
       <option value="0">This contains ur tokens ID from your wallet</option>
       <option *ngFor="let id of ownerPropretyIds | async; index as i;" [value]="id['words'][0]">
@@ -35,4 +27,50 @@
   (click)="addMarketPlaceItem(tokenId, Price)"
 >
   Creat MarketPlace Item
-</button>
+</button> -->
+
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Add MarketPace Item">
+        <mat-card-content>
+          <form
+            [formGroup]="marketItem"
+            #FormSignIn="ngForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <mat-form-field>
+              <mat-label>Proprety's token ID (NFT's ID)</mat-label>
+              <select matNativeControl formControlName="tokenId">
+                <option value="">
+                  This contains ur tokens ID from your wallet
+                </option>
+                <option
+                  *ngFor="let id of ownerPropretyIds | async; index as i"
+                  [value]="id['words'][0]"
+                >
+                  {{ id["words"][0] }}
+                </option>
+              </select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Price"
+                required
+                name="Price"
+                formControlName="Price"
+              />
+              <mat-icon matSuffix>crop</mat-icon>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="login-button">
+              Add to market place
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

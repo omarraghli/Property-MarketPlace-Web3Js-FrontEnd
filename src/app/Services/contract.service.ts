@@ -65,6 +65,7 @@ export class ContractService {
   async CreateNFTToken(propertycontractId: string) {
     let ac = await this.LoadAccount();
     let that = this;
+
     return new Promise((resolve, reject) => {
       let paymentContract = TruffleContract(tokenAbi);
       paymentContract.setProvider(that._web3);
@@ -75,6 +76,7 @@ export class ContractService {
             instance.createProprety(propertycontractId, { from: ac })
           );
         })
+
         .catch(function (error) {
           console.log(error);
           return reject('Error in Creating NFT Token service call');
@@ -118,20 +120,39 @@ export class ContractService {
     });
   }
 
-  async fetchMyPropreties(){
+  async fetchMyPropreties() {
     let that = this;
+    let ac = await this.LoadAccount();
     return new Promise((resolve, reject) => {
-      console.log('From', { from: this.account });
       let paymentContract = TruffleContract(tokenAbi);
       paymentContract.setProvider(that._web3);
       paymentContract
         .deployed()
         .then(async function (instance) {
-          return resolve(instance.fetchMyNFTs());
+          return resolve(instance.fetchMyNFTs({from : ac}));
         })
         .catch(function (error) {
           console.log(error);
           return reject('Error in fetchMarketItems service call');
+        });
+    });
+  }
+
+
+  async displayAllTransactions() {
+    let that = this;
+    let ac = await this.LoadAccount();
+    return new Promise((resolve, reject) => {
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(instance.displayAllTransactions({from : ac}));
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in displayAllTransactions service call');
         });
     });
   }
@@ -202,7 +223,7 @@ export class ContractService {
       paymentContract
         .deployed()
         .then(async function (instance) {
-          return resolve(instance.getOwnerPropretyIds({from : ac}));
+          return resolve(instance.getOwnerPropretyIds({ from: ac }));
         })
         .catch(function (error) {
           console.log(error);
@@ -220,7 +241,7 @@ export class ContractService {
       paymentContract
         .deployed()
         .then(async function (instance) {
-          return resolve(instance.fetchItemsCreated({from : ac}));
+          return resolve(instance.fetchItemsCreated({ from: ac }));
         })
         .catch(function (error) {
           console.log(error);
@@ -229,7 +250,7 @@ export class ContractService {
     });
   }
 
-  async cancelMarketSell(itemId : number) {
+  async cancelMarketSell(itemId: number) {
     let ac = await this.LoadAccount();
     let that = this;
     return new Promise((resolve, reject) => {
@@ -238,7 +259,7 @@ export class ContractService {
       paymentContract
         .deployed()
         .then(async function (instance) {
-          return resolve(instance.cancelMarketSell(itemId,{from : ac}));
+          return resolve(instance.cancelMarketSell(itemId, { from: ac }));
         })
         .catch(function (error) {
           console.log(error);

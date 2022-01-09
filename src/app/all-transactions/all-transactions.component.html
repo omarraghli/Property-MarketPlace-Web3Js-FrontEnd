@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div *ngFor="let item of allTransactions | async" class="card">
+    <div class="card-image"></div>
+    <div class="card-text">
+      <span class="date"></span>
+      <p>
+        Price:
+        {{ item["price"] }} ETH
+      </p>
+      <p>Or</p>
+      <p>
+        {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
+      </p>
+      <p style="overflow-wrap: break-word">Seller: {{ item["seller"] }}</p>
+      <p style="overflow-wrap: break-word">New owner: {{ item["owner"] }}</p>
+    </div>
+  </div>
+</div>

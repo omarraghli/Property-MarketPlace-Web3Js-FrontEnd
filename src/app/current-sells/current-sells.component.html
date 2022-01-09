@@ -1,33 +1,29 @@
 <div class="wrapper">
-    <div *ngFor="let item of createdItems | async" class="card">
-      <div class="card-image"></div>
-      <div class="card-text">
-        <span class="date"></span>
-        <h2>Seller</h2>
-        <p>
-          {{ item["seller"] }}
-        </p>
-        <p>{{[item['sold']]}}</p>
-        <p *ngIf="item['sold'] == true">
-            Sell Canceled
-          </p>
+  <div *ngFor="let item of createdItems | async" class="card">
+    <div class="card-image"></div>
+    <div class="card-text">
+      <span class="date"></span>
+      <p>
+        Price:
+        {{ item["price"] }} ETH
+      </p>
+      <p>Or</p>
+      <p>
+        {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
+      </p>
+      <p *ngIf="item['sold'] == true">Sold or Canceled</p>
+    </div>
+    <div class="card-stats">
+      <div class="stat">
+        <div class="value"></div>
+        <div class="type"></div>
+        <div class="type"></div>
       </div>
-      <div class="card-stats">
-        <div class="stat">
-          <div class="value">Price:</div>
-          <div class="type">{{ item["price"] }} ETH</div>
-          <div class="type">
-            {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
-          </div>
-        </div>
-        <div class="stat border" *ngIf="item['sold'] == false">
-          <button
-            class="btn btn-success BuyBTN"
-            (click)="cancelMarketSell(item['itemId'])"
-          >
-            Cancel this sell
-          </button>
-        </div>
+      <div *ngIf="item['sold'] == false">
+        <button class="button-36" (click)="cancelMarketSell(item['itemId'])">
+          Cancel this sell
+        </button>
       </div>
     </div>
   </div>
+</div>

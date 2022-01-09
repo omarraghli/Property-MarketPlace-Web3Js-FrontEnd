@@ -1,17 +1,65 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ContractService } from '../Services/contract.service';
+import { DataServiceService } from '../Services/data-service.service';
+import { JwtClientService } from '../Services/jwt-client.service';
 @Component({
   selector: 'app-add-property',
   templateUrl: './add-property.component.html',
   styleUrls: ['./add-property.component.css'],
 })
 export class AddPropertyComponent implements OnInit {
+  profileForm = new FormGroup({
+    owner: new FormControl(''),
+    adresse: new FormControl(''),
+    area: new FormControl(''),
+    typeOfProprety: new FormControl(''),
+    titre: new FormControl(''),
+  });
+  response: any;
+  IdAuthenticated: any;
   PropretyContractIdentifier: string = '';
   propretyType: string = '';
-  constructor(private contractService: ContractService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private service: JwtClientService,
+    private _DataServiceService: DataServiceService,
+    private contractService: ContractService
+  ) {}
 
   ngOnInit(): void {}
   CreateNFTToken(propertycontractId: string) {
     this.contractService.CreateNFTToken(propertycontractId);
+  }
+
+  public onSubmit() {
+    console.log('_idAuthenticated', this._DataServiceService._idAuthenticated);
+    this.IdAuthenticated = this._DataServiceService.getidAuthenticated();
+    console.log('this.profileForm before', this.profileForm.value);
+    console.log('TITRE', this.profileForm['value']['titre']);
+    this.profileForm.patchValue({
+      owner: {
+        id: this.IdAuthenticated,
+      },
+    });
+    console.log('this.IdAuthenticated', this.IdAuthenticated);
+    console.log('this.profileForm after', this.profileForm.value);
+    this.CreateNFTToken(this.profileForm['value']['titre']);
+    this.http
+      .post(
+        'http://localhost:9191/Property/saveBienImmobilier',
+        this.profileForm.value
+      )
+      .subscribe((result) => {
+        console.warn('result', result);
+      });
+  }
+
+  public AccessIDAuthenticated() {
+    this.IdAuthenticated = this.service.idAuthenticated;
+    console.warn(this.IdAuthenticated);
   }
 }
