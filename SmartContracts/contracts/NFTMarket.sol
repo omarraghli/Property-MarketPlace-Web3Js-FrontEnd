@@ -66,11 +66,14 @@ contract NFTMarket is ReentrancyGuard {
             msg.sender,
             _propertycontractId
         );
-        //_mint(msg.sender, newItemId);
         _propertycontractIdExiste[_propertycontractId] = true;
-        //setApprovalForAll(contractAddress, true);
         emit propertyCreated(newItemId, msg.sender, _propertycontractId);
         return newItemId;
+    }
+    /*getting property by id*/
+    function getPropretyByTokenId(uint256 id) public view returns(property memory) {
+        property memory item = _propertys[id];
+        return item;
     }
 
     function changeOwner(address newOwner, uint256 tokenId) public {

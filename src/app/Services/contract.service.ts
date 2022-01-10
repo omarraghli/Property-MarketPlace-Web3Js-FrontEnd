@@ -214,6 +214,29 @@ export class ContractService {
     });
   }
 
+  async getPropretyByTokenId(Id: number) {
+    let ac = await this.LoadAccount();
+    console.log('Load Account :: Create Item', this.account);
+    let that = this;
+    return new Promise((resolve, reject) => {
+      let paymentContract = TruffleContract(tokenAbi);
+      paymentContract.setProvider(that._web3);
+      paymentContract
+        .deployed()
+        .then(async function (instance) {
+          return resolve(
+            instance.getPropretyByTokenId(Id, {
+              from: ac,
+            })
+          );
+        })
+        .catch(function (error) {
+          console.log(error);
+          return reject('Error in service call :: createMarketItem');
+        });
+    });
+  }
+
   async getownerPropretyIds() {
     let ac = await this.LoadAccount();
     let that = this;
