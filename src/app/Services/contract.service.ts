@@ -72,6 +72,7 @@ export class ContractService {
       paymentContract
         .deployed()
         .then(async function (instance) {
+          // console.log("INSTAAAAAAAAAAAAAANCE",instance)
           return resolve(
             instance.createProprety(propertycontractId, { from: ac })
           );

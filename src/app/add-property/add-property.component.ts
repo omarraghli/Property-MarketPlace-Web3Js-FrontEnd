@@ -30,12 +30,13 @@ export class AddPropertyComponent implements OnInit {
     private contractService: ContractService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
   CreateNFTToken(propertycontractId: string) {
-    this.contractService.CreateNFTToken(propertycontractId);
+    let isCreated = this.contractService.CreateNFTToken(propertycontractId);
+    return isCreated;
   }
 
-  public onSubmit() {
+  public async onSubmit() {
     console.log('_idAuthenticated', this._DataServiceService._idAuthenticated);
     this.IdAuthenticated = this._DataServiceService.getidAuthenticated();
     console.log('this.profileForm before', this.profileForm.value);
@@ -47,15 +48,21 @@ export class AddPropertyComponent implements OnInit {
     });
     console.log('this.IdAuthenticated', this.IdAuthenticated);
     console.log('this.profileForm after', this.profileForm.value);
-    this.CreateNFTToken(this.profileForm['value']['titre']);
-    this.http
-      .post(
-        'http://localhost:9191/Property/saveBienImmobilier',
-        this.profileForm.value
-      )
-      .subscribe((result) => {
-        console.warn('result', result);
-      });
+
+    let ifCreated = await this.CreateNFTToken(
+      this.profileForm['value']['titre']
+    );
+    console.log('ifCreatedifCreated', ifCreated);
+    if (ifCreated) {
+      this.http
+        .post(
+          'http://localhost:9191/Property/saveBienImmobilier',
+          this.profileForm.value
+        )
+        .subscribe((result) => {
+          console.warn('result', result);
+        });
+    }
   }
 
   public AccessIDAuthenticated() {
