@@ -60,18 +60,20 @@ export class SignInFormComponent implements OnInit {
     resp.subscribe((data) => this.AcessApi(data));
   }
 
-  public stockToken(token: any) {
-    this.token = token;
-    console.warn(this.token);
-    if (this.token != 'Erreur authentication') {
-      this.router.navigate(['/InterfaceUser']);
-      this.service.giveAcess();
-      localStorage.setItem('SignIn', 'true');
-    } else {
-      console.warn('no');
-      this.message = 'username or password inccorect';
+  public stockToken (token:any){
+    this.token=token
+    console.warn(this.token)
+    if(this.token!="Erreur authentication"){
+      this.router.navigate(['/InterfaceUser'])
+      this.service.giveAcess()
+      localStorage.setItem("SignIn","true");
+      this.service.setToken(token)
     }
-  }
+    else{
+      console.warn("no")
+      this.message="username or password inccorect"
+    }
+}
 
   public AcessApi(token: any) {
     let resp = this.service.welcome(token);

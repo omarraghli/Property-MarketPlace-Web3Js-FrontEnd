@@ -1,41 +1,63 @@
-<form class="search-bar">
-  <input
-    class="form-control mr-sm-2"
-    type="search"
-    placeholder="Search by seller address"
-    aria-label="Search"
-    name="sellerSearchInputeSearch"
-    [(ngModel)]="sellerSearchInputeSearch"
-  />
-  <button class="search-btn" (click)="searchBySellerAddress(sellerSearchInputeSearch)">
-     <span>Search</span>
-  </button>
-</form>
-<div class="wrapper">
-  <div *ngFor="let item of MarketItems | async" class="card">
-    <div class="card-image"></div>
-    <div class="card-text">
-      <span class="date"></span>
-      <h2>Seller</h2>
-      <p style="overflow-wrap: break-word;">
-        {{ item["seller"] }}
-      </p>
-    </div>
-    <div class="card-stats">
-      <div class="stat">
-        <div class="value">Price:</div>
-        <div class="type">{{ item["price"] }} ETH</div>
-        <div class="type">
-          {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
-        </div>
+<div
+  style="
+    background-image: url('../../assets/imgs/BackGroundImg.png');
+    min-height: 100%;
+  "
+>
+  <form class="search-bar">
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Search by seller address"
+      aria-label="Search"
+      name="sellerSearchInputeSearch"
+      [(ngModel)]="sellerSearchInputeSearch"
+    />
+    <button
+      class="search-btn"
+      (click)="searchBySellerAddress(sellerSearchInputeSearch)"
+    >
+      <span>Search</span>
+    </button>
+  </form>
+  <div class="wrapper">
+    <div *ngFor="let item of MarketItems | async; let i = index" class="card">
+      <div
+        [ngClass]="{
+          'card-image-apartement': propertiesTypes[i] === 'Apartement',
+          'card-image-land': propertiesTypes[i] === 'Land',
+          'card-image-garage': propertiesTypes[i] === 'Garage',
+          'card-image-bureau': propertiesTypes[i] === 'Office',
+          'card-image-villa': propertiesTypes[i] === 'Villa',
+          'card-image-villa': propertiesTypes[i] === 'Villa',
+          'card-image-maison': propertiesTypes[i] === 'House'
+        }"
+      ></div>
+      <div class="card-text">
+        <span class="date"></span>
+        <h2>Seller</h2>
+        <p style="overflow-wrap: break-word">
+          {{ item["seller"] }}
+        </p>
+        <h1>Area:</h1>
+        <p style="overflow-wrap: break-word">{{ propertiesAreas[i] }} m²</p>
       </div>
-      <div>
-        <button
-          class="button-36"
-          (click)="createMarketSale(item['itemId'], item['price'])"
-        >
-          Buy
-        </button>
+      <div class="card-stats">
+        <div class="stat">
+          <div class="value">Price:</div>
+          <div class="type">{{ item["price"] }} ETH</div>
+          <div class="type">
+            {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
+          </div>
+        </div>
+        <div>
+          <button
+            class="button-36"
+            (click)="createMarketSale(item['itemId'], item['price'])"
+          >
+            Buy
+          </button>
+        </div>
       </div>
     </div>
   </div>

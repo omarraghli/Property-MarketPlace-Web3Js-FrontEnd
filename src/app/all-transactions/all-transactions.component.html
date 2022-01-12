@@ -1,18 +1,33 @@
-<div class="wrapper">
-  <div *ngFor="let item of allTransactions | async" class="card">
-    <div class="card-image"></div>
+<div
+  style="
+    background-image: url('../../assets/imgs/BackGroundImg.png');
+    min-height: 100%;
+  "
+  class="wrapper"
+>
+  <div *ngFor="let item of allTransactions | async; let i = index" class="card">
+    <div
+      [ngClass]="{
+        'card-image-apartement': propertiesTypes[i] === 'Apartement',
+        'card-image-land': propertiesTypes[i] === 'Land',
+        'card-image-garage': propertiesTypes[i] === 'Garage',
+        'card-image-bureau': propertiesTypes[i] === 'Office',
+        'card-image-villa': propertiesTypes[i] === 'Villa',
+        'card-image-villa': propertiesTypes[i] === 'Villa',
+        'card-image-maison': propertiesTypes[i] === 'House'
+      }"
+    ></div>
     <div class="card-text">
       <span class="date"></span>
       <p>
-        Price:
-        {{ item["price"] }} ETH
-      </p>
-      <p>Or</p>
-      <p>
+        Sold with:
+        {{ item["price"] }} ETH Or
         {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
       </p>
-      <p style="overflow-wrap: break-word">Seller: {{ item["seller"] }}</p>
-      <p style="overflow-wrap: break-word">New owner: {{ item["owner"] }}</p>
+      <p>Area: {{ propertiesAreas[i] }} m²</p>
+      <p>Seller: {{ item["seller"] }}</p>
+      <p>New owner: {{ item["owner"] }}</p>
+      <p>address: {{ propertiesAddresses[i] }}</p>
     </div>
   </div>
 </div>

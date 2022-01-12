@@ -44,6 +44,54 @@
     -webkit-user-select: none;
     touch-action: manipulation;
   }
+
+  .card-image-land {
+  grid-area: image;
+   background: url("./../../assets/imgs/land.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-image-apartement {
+  grid-area: image;
+   background: url("./../../assets/imgs/apartement.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-image-garage {
+  grid-area: image;
+   background: url("./../../assets/imgs/garage.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-image-bureau {
+  grid-area: image;
+   background: url("./../../assets/imgs/bureau.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-image-maison {
+  grid-area: image;
+   background: url("./../../assets/imgs/maison.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
+
+.card-image-villa {
+  grid-area: image;
+   background: url("./../../assets/imgs/villadelux.jpg");  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-size: cover;
+}
   
   .button-36:hover {
     box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
@@ -232,5 +280,58 @@
   .search-bar input:valid + .search-btn:hover,
   .search-bar input:valid:not(:focus) + .search-btn:focus {
     background: #0c48db;
+  }
+
+
+
+
+  
+
+  .card-image-land {
+    grid-area: image;
+     background: url("./../../assets/imgs/land.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+  }
+  
+  .card-image-apartement {
+    grid-area: image;
+     background: url("./../../assets/imgs/apartement.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+  }
+  
+  .card-image-garage {
+    grid-area: image;
+     background: url("./../../assets/imgs/garage.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+  }
+  
+  .card-image-bureau {
+    grid-area: image;
+     background: url("./../../assets/imgs/bureau.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+  }
+  
+  .card-image-maison {
+    grid-area: image;
+     background: url("./../../assets/imgs/maison.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+  }
+  
+  .card-image-villa {
+    grid-area: image;
+     background: url("./../../assets/imgs/villadelux.jpg");  
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
   }
   

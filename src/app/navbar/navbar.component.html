@@ -4,11 +4,17 @@
   <div class="spacer"></div>
   <a mat-button routerLink="">Home</a>
   <a mat-button *ngIf="isSignIn()" routerLink="AddProprety">Add Property</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="InterfaceUser">My Account</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="MyPropreties">Propreties bought</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="SellingProprety">Sell your proprety</a>
+
+  <a mat-button *ngIf="isSignIn()" routerLink="SellingProprety"
+    >Sell your proprety</a
+  >
   <a mat-button *ngIf="isSignIn()" routerLink="CurrentSells">Current Sells</a>
+  <a mat-button *ngIf="isSignIn()" routerLink="MyPropreties"
+    >Propreties bought</a
+  >
   <a mat-button *ngIf="isSignIn()" routerLink="MarketPlace">Market Place</a>
+  <a mat-button routerLink="AllTransactions">All blockchain transaction</a>
+  <a mat-button *ngIf="isSignIn()" routerLink="InterfaceUser">My Account</a>
   <a
     mat-raised-button
     *ngIf="!isSignIn()"

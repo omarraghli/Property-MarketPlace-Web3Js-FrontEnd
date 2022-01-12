@@ -46,6 +46,7 @@ export class AddPropertyComponent implements OnInit {
         id: this.IdAuthenticated,
       },
     });
+    
     console.log('this.IdAuthenticated', this.IdAuthenticated);
     console.log('this.profileForm after', this.profileForm.value);
 
@@ -53,15 +54,12 @@ export class AddPropertyComponent implements OnInit {
       this.profileForm['value']['titre']
     );
     console.log('ifCreatedifCreated', ifCreated);
-    if (ifCreated) {
-      this.http
-        .post(
-          'http://localhost:9191/Property/saveBienImmobilier',
-          this.profileForm.value
-        )
-        .subscribe((result) => {
-          console.warn('result', result);
-        });
+    if (await ifCreated) {
+     
+    let resp =this.service.SaveProperty(this.service.Token,this.profileForm.value)
+    resp.subscribe(data=>this.response=data);
+
+    
     }
   }
 
