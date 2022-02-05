@@ -107,7 +107,7 @@ export class DisplayMarketItemsComponent implements OnInit {
     console.log('Recipie ACCOUUUnT', currentAccount);
     let recepie = this.contractService.createMarketSale(itemId, price);
     let property: any = this.JWTClientService.getPropertyByTitre(
-      this.JWTClientService.Token,
+      localStorage.getItem('Token'),
       titre
     );
     property.subscribe(async (data) => {
@@ -118,7 +118,7 @@ export class DisplayMarketItemsComponent implements OnInit {
 
     if (await recepie) {
       let resp = this.JWTClientService.saveContrat(
-        this.JWTClientService.Token,
+        localStorage.getItem('Token'),
         {
           seller: sellerAddress,
           buyer: currentAccount,

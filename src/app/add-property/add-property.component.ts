@@ -56,7 +56,7 @@ export class AddPropertyComponent implements OnInit {
     console.log('ifCreatedifCreated', ifCreated);
     if (await ifCreated) {
       let resp = this.service.SaveProperty(
-        this.service.Token,
+        localStorage.getItem('Token'),
         this.profileForm.value
       );
       resp.subscribe((data) => (this.response = data));

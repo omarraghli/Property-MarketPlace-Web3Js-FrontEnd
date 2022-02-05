@@ -17,6 +17,9 @@ export class NavbarComponent implements OnInit {
   }
 
   public Logout(){
-    localStorage.removeItem('SignIn');
+    localStorage.removeItem('Token');
+    localStorage.setItem('SignIn',"false");
+
+
   }
 }

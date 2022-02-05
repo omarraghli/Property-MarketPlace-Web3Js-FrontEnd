@@ -3,28 +3,28 @@
   <span class="tabulation"> Real Estate Agent</span>
   <div class="spacer"></div>
   <a mat-button routerLink="">Home</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="AddProprety">Add Property</a>
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="AddProprety">Add Property</a>
 
-  <a mat-button *ngIf="isSignIn()" routerLink="SellingProprety"
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="SellingProprety"
     >Sell your proprety</a
   >
-  <a mat-button *ngIf="isSignIn()" routerLink="CurrentSells">Current Sells</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="MyPropreties"
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="CurrentSells">Current Sells</a>
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="MyPropreties"
     >Propreties bought</a
   >
-  <a mat-button *ngIf="isSignIn()" routerLink="MarketPlace">Market Place</a>
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="MarketPlace">Market Place</a>
   <a mat-button routerLink="AllTransactions">All blockchain transaction</a>
-  <a mat-button *ngIf="isSignIn()" routerLink="InterfaceUser">My Account</a>
+  <a mat-button *ngIf="isSignIn()=='true'" routerLink="InterfaceUser">My Account</a>
   <a
     mat-raised-button
-    *ngIf="!isSignIn()"
+    *ngIf="isSignIn()=='false'"
     color="primary"
     routerLink="FormSignIn"
     >Sign in</a
   >
   <a
     mat-raised-button
-    *ngIf="isSignIn()"
+    *ngIf="isSignIn()=='true'"
     color="primary"
     routerLink="FormSignIn"
     (click)="Logout()"
