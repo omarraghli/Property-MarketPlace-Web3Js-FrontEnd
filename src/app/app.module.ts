@@ -31,6 +31,8 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { InterfaceUserComponent } from './interface-user/interface-user.component';
 import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
+import { EditeProfileComponent } from './edite-profile/edite-profile.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { AllTransactionsComponent } from './all-transactions/all-transactions.co
     HomePageComponent,
     InterfaceUserComponent,
     AllTransactionsComponent,
+    EditeProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { AllTransactionsComponent } from './all-transactions/all-transactions.co
     HttpClientModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [ContractService],
   bootstrap: [AppComponent],

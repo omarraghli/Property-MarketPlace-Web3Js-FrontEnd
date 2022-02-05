@@ -12,6 +12,25 @@ export class JwtClientService {
   isSignIn: any = 0;
   constructor(private http: HttpClient) {}
 
+  public GetUserInfo(token: any, params: any) {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get('http://localhost:9191/UpdateAccount/update', {
+      headers,
+      params,
+    });
+  }
+
+  public SaveUpdatedUser(token: any, data: any) {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post(
+      'http://localhost:9191/UpdateAccount/UpdateUser',
+      data,
+      { headers, responseType: 'Text' as 'json' }
+    );
+  }
+
   public generateToken(request: any) {
     return this.http.post('http://localhost:9191/connexion/auth', request, {
       responseType: 'Text' as 'json',
@@ -37,12 +56,28 @@ export class JwtClientService {
     );
   }
 
-  public GetInfoProperty(token: any, data: any) {
+  public saveContrat(token: any, data: any) {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post('http://localhost:9191/Contrat/SaveContart', data, {
+      headers,
+      responseType: 'Text' as 'json',
+    });
+  }
+
+  public getPropertyByTitre(token: any, titre: string) {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.get(
-      'http://localhost:9191/Property/GetInfoProperty?titre=' + data,
+      'http://localhost:9191/Property/getPropertyByTitre?Titre=' + titre,
       { headers, responseType: 'Text' as 'json' }
+    );
+  }
+
+  public GetInfoProperty(data: any) {
+    return this.http.get(
+      'http://localhost:9191/Property/GetInfoProperty?titre=' + data,
+      { responseType: 'Text' as 'json' }
     );
   }
 

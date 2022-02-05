@@ -46,7 +46,7 @@ export class AddPropertyComponent implements OnInit {
         id: this.IdAuthenticated,
       },
     });
-    
+
     console.log('this.IdAuthenticated', this.IdAuthenticated);
     console.log('this.profileForm after', this.profileForm.value);
 
@@ -55,11 +55,11 @@ export class AddPropertyComponent implements OnInit {
     );
     console.log('ifCreatedifCreated', ifCreated);
     if (await ifCreated) {
-     
-    let resp =this.service.SaveProperty(this.service.Token,this.profileForm.value)
-    resp.subscribe(data=>this.response=data);
-
-    
+      let resp = this.service.SaveProperty(
+        this.service.Token,
+        this.profileForm.value
+      );
+      resp.subscribe((data) => (this.response = data));
     }
   }
 

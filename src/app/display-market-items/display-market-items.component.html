@@ -53,7 +53,14 @@
         <div>
           <button
             class="button-36"
-            (click)="createMarketSale(item['itemId'], item['price'])"
+            (click)="
+              createMarketSale(
+                item['itemId'],
+                item['price'],
+                item['seller'],
+                allItemsTitre[i]
+              )
+            "
           >
             Buy
           </button>

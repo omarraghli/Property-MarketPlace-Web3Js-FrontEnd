@@ -64,7 +64,6 @@ export class AllTransactionsComponent implements OnInit {
     let propertiesTypes: string[] = [];
     allItemsUniqueString.forEach((item) => {
       let resp = this.JWTClientService.GetInfoProperty(
-        this.JWTClientService.Token,
         item
       );
       resp.subscribe((data) => {

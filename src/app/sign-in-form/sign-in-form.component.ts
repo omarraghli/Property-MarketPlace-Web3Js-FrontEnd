@@ -10,7 +10,6 @@ import { JwtClientService } from '../Services/jwt-client.service';
   styleUrls: ['./sign-in-form.component.css'],
 })
 export class SignInFormComponent implements OnInit {
-  IdAuthenticated: any;
   token: any;
   sucess: any;
   response: any;
@@ -48,11 +47,15 @@ export class SignInFormComponent implements OnInit {
     resp.subscribe((res) => this.stockData(res));
   }
 
+  // public stockData(data: any) {
+  //   this._DataServiceService.addidAuthenticated(data);
+  //   this.service.giveAcess();
+  // }
   public stockData(data: any) {
+    localStorage.setItem('User', data);
     this._DataServiceService.addidAuthenticated(data);
     this.service.giveAcess();
   }
-
   public getAcessToken(authRequest: any) {
     let resp = this.service.generateToken(authRequest);
     resp.subscribe((data) => console.log(data));
@@ -60,20 +63,34 @@ export class SignInFormComponent implements OnInit {
     resp.subscribe((data) => this.AcessApi(data));
   }
 
-  public stockToken (token:any){
-    this.token=token
-    console.warn(this.token)
-    if(this.token!="Erreur authentication"){
-      this.router.navigate(['/InterfaceUser'])
-      this.service.giveAcess()
-      localStorage.setItem("SignIn","true");
-      this.service.setToken(token)
+  // public stockToken(token: any) {
+  //   this.token = token;
+  //   console.warn(this.token);
+  //   if (this.token != 'Erreur authentication') {
+  //     this.router.navigate(['/InterfaceUser']);
+  //     this.service.giveAcess();
+  //     localStorage.setItem('SignIn', 'true');
+  //     this.service.setToken(token);
+  //   } else {
+  //     console.warn('no');
+  //     this.message = 'username or password inccorect';
+  //   }
+  // }
+  public stockToken(token: any) {
+    localStorage.setItem('Token', token);
+    this.token = token;
+    console.warn(this.token);
+    if (this.token != 'Erreur authentication') {
+      this.router.navigate(['/InterfaceUser']);
+      this.service.giveAcess();
+      localStorage.setItem('SignIn', 'true');
+
+      this.service.setToken(token);
+    } else {
+      console.warn('no');
+      this.message = 'username or password inccorect';
     }
-    else{
-      console.warn("no")
-      this.message="username or password inccorect"
-    }
-}
+  }
 
   public AcessApi(token: any) {
     let resp = this.service.welcome(token);

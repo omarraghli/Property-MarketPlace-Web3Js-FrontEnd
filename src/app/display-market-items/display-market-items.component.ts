@@ -16,10 +16,12 @@ export class DisplayMarketItemsComponent implements OnInit {
   BinanceObject: BinanceObject[];
   interval: any;
   sellerSearchInputeSearch: string;
+  response: any;
 
   propertiesAddresses: string[] = [];
   propertiesAreas: string[] = [];
   propertiesTypes: string[] = [];
+  allItemsTitre: string[] = [];
 
   constructor(
     private contractService: ContractService,
@@ -59,6 +61,7 @@ export class DisplayMarketItemsComponent implements OnInit {
       allItemsUniqueString.push(fetchItemsProperties[j]['propertycontractId']);
     }
     console.log('allItemsUniqueString', allItemsUniqueString);
+    this.allItemsTitre = allItemsUniqueString;
 
     //getType-address-area of properties
     let propertiesAddresses: string[] = [];
@@ -66,7 +69,6 @@ export class DisplayMarketItemsComponent implements OnInit {
     let propertiesTypes: string[] = [];
     allItemsUniqueString.forEach((item) => {
       let resp = this.JWTClientService.GetInfoProperty(
-        this.JWTClientService.Token,
         item
       );
       resp.subscribe((data) => {
@@ -94,15 +96,45 @@ export class DisplayMarketItemsComponent implements OnInit {
     return property;
   }
 
-  async createMarketSale(itemId: number, price: number) {
+  async createMarketSale(
+    itemId: number,
+    price: number,
+    sellerAddress: string,
+    titre: string
+  ) {
+    let currentAccount = await this.contractService.LoadAccount();
+    let propertyId: string;
+    console.log('Recipie ACCOUUUnT', currentAccount);
     let recepie = this.contractService.createMarketSale(itemId, price);
-    console.log("createMarketSale recepie",recepie);
+    let property: any = this.JWTClientService.getPropertyByTitre(
+      this.JWTClientService.Token,
+      titre
+    );
+    property.subscribe(async (data) => {
+      let JsonFormatData = JSON.parse(data);
+      let id = JsonFormatData.id;
+      propertyId = id;
+    });
 
-    if(await recepie){
+    if (await recepie) {
+      let resp = this.JWTClientService.saveContrat(
+        this.JWTClientService.Token,
+        {
+          seller: sellerAddress,
+          buyer: currentAccount,
+          prix: price,
+          bienImmobilier: {
+            id: propertyId,
+          },
+        }
+      );
+      resp.subscribe((data) => {
+        this.response = data;
+        console.log('dataaaaaa', data);
+      });
+
       this.MarketItems = this.fetchMarketItems();
     }
-
-    
   }
 
   async searchBySellerAddress(SellerAddress: string) {
