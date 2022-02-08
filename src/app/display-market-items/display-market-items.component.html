@@ -35,13 +35,17 @@
       ></div>
       <div class="card-text">
         <span class="date"></span>
-        <h2>Seller</h2>
+        <p style="font-weight: bold">Seller:</p>
         <p style="overflow-wrap: break-word">
           {{ item["seller"] }}
         </p>
-        <h1>Area:</h1>
+        <p style="font-weight: bold">Area:</p>
         <p style="overflow-wrap: break-word">{{ propertiesAreas[i] }} m²</p>
+
+        <p style="font-weight: bold">address:</p>
+        <p>{{ propertiesAddresses[i] }}</p>
       </div>
+
       <div class="card-stats">
         <div class="stat">
           <div class="value">Price:</div>

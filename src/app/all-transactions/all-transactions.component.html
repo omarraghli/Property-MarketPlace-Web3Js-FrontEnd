@@ -19,15 +19,19 @@
     ></div>
     <div class="card-text">
       <span class="date"></span>
-      <p>
+      <p style="font-weight: bold">
         Sold with:
         {{ item["price"] }} ETH Or
         {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
       </p>
-      <p>Area: {{ propertiesAreas[i] }} m²</p>
-      <p>Seller: {{ item["seller"] }}</p>
-      <p>New owner: {{ item["owner"] }}</p>
-      <p>address: {{ propertiesAddresses[i] }}</p>
+      <p style="font-weight: bold">Area:</p>
+      <p>{{ propertiesAreas[i] }} m²</p>
+      <p style="font-weight: bold">Seller:</p>
+      <p>{{ item["seller"] }}</p>
+      <p style="font-weight: bold">New owner:</p>
+      <p>{{ item["owner"] }}</p>
+      <p style="font-weight: bold">address:</p>
+      <p>{{ propertiesAddresses[i] }}</p>
     </div>
   </div>
 </div>

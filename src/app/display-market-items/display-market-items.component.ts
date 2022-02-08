@@ -44,6 +44,7 @@ export class DisplayMarketItemsComponent implements OnInit {
   async fetchMarketItems(): Promise<any> {
     //get MarketPlace items
     const Items: any = await this.contractService.fetchMarketItems();
+    console.log("marketItems",Items)
     //fetche items with their properties
     let fetchItemsProperties: any[] = [];
     let s: any = await Promise.all(Items);
@@ -67,16 +68,18 @@ export class DisplayMarketItemsComponent implements OnInit {
     let propertiesAddresses: string[] = [];
     let propertiesAreas: string[] = [];
     let propertiesTypes: string[] = [];
+
+    let datatmp: any[] = [];
     allItemsUniqueString.forEach((item) => {
-      let resp = this.JWTClientService.GetInfoProperty(
-        item
-      );
+      let resp = this.JWTClientService.GetInfoProperty(item);
       resp.subscribe((data) => {
         let responseJsonFormat: any = JSON.parse(data.toString());
         console.log(
           'data getType-address-area of properties',
           responseJsonFormat
         );
+        datatmp.push(data);
+        
         propertiesAddresses.push(responseJsonFormat['adresse']);
         propertiesAreas.push(responseJsonFormat['area']);
         propertiesTypes.push(responseJsonFormat['typeOfProprety']);
@@ -85,6 +88,7 @@ export class DisplayMarketItemsComponent implements OnInit {
       this.propertiesAreas = propertiesAreas;
       this.propertiesTypes = propertiesTypes;
     });
+    console.log("DATATEST",datatmp);
     console.log('properties areas', propertiesAreas);
     console.log('propertiesAddresses', propertiesAddresses);
     return Items;
@@ -138,9 +142,7 @@ export class DisplayMarketItemsComponent implements OnInit {
   }
 
   async searchBySellerAddress(SellerAddress: string) {
-    console.log('befor');
     let SelectedItems: any;
-    console.log('after');
     let s: any = await Promise.all(await this.MarketItems);
     let sSelectedItems: any = [];
     for (let i = 0; i < s.length; i++) {
@@ -150,10 +152,60 @@ export class DisplayMarketItemsComponent implements OnInit {
     }
 
     if (sSelectedItems.length > 0) {
-      let tmpPromiss = Promise.resolve(sSelectedItems);
+      console.log('sSelectedItems', sSelectedItems);
+      //fetche items with their properties
+      //map data between blockchain and database
+      let fetchItemsProperties: any[] = [];
+      for (let i = 0; i < sSelectedItems.length; i++) {
+        let currentProperty: any = await this.getPropretyByTokenId(
+          sSelectedItems[i]['tokenId']
+        );
+        fetchItemsProperties.push(currentProperty);
+      }
+      console.log('fetchItemsProperties', fetchItemsProperties);
+      //getAllPropertiesUniqueString
+      let allItemsUniqueString: string[] = [];
+      for (let j = 0; j < fetchItemsProperties.length; j++) {
+        allItemsUniqueString.push(
+          fetchItemsProperties[j]['propertycontractId']
+        );
+      }
+      console.log('allItemsUniqueString', allItemsUniqueString);
+      this.allItemsTitre = allItemsUniqueString;
+
+      //getType-address-area of properties
+      let propertiesAddresses: string[] = [];
+      let propertiesAreas: string[] = [];
+      let propertiesTypes: string[] = [];
+      allItemsUniqueString.forEach((item) => {
+        let resp = this.JWTClientService.GetInfoProperty(item);
+        resp.subscribe((data) => {
+          let responseJsonFormat: any = JSON.parse(data.toString());
+          console.log(
+            'data getType-address-area of properties',
+            responseJsonFormat
+          );
+          propertiesAddresses.push(responseJsonFormat['adresse']);
+          propertiesAreas.push(responseJsonFormat['area']);
+          propertiesTypes.push(responseJsonFormat['typeOfProprety']);
+        });
+        this.propertiesAddresses = propertiesAddresses;
+        this.propertiesAreas = propertiesAreas;
+        this.propertiesTypes = propertiesTypes;
+      });
+      console.log('properties areas', propertiesAreas);
+      console.log('propertiesAddresses', propertiesAddresses);
+      let tmparray : string[] = [];
+      tmparray= this.propertiesAddresses.concat(sSelectedItems,propertiesAddresses,propertiesTypes);
+      console.log("tmparray",tmparray);
+
+      //let tmpPromiss = Promise.resolve(sSelectedItems);
+      let tmpPromiss = Promise.resolve(tmparray);
       this.MarketItems = tmpPromiss;
     } else {
       console.log('seller not found');
     }
   }
+
+
 }

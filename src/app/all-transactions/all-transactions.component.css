@@ -17,7 +17,7 @@
     box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
     font-family: roboto;
     text-align: center;
-  
+    height: 600px;
     transition: 0.5s ease;
     cursor: pointer;
     margin:30px;

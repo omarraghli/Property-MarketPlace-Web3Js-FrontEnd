@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -12,7 +13,7 @@ import { JwtClientService } from './jwt-client.service';
   providedIn: 'root',
 })
 export class IsSignedInGuardService implements CanActivate {
-  constructor(private service: JwtClientService) {}
+  constructor(private service: JwtClientService,private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -25,7 +26,8 @@ export class IsSignedInGuardService implements CanActivate {
     //localStorage.getItem('Token')
     //if (this.service.giveValueofAccess()==0)  {
     if (localStorage.getItem('SignIn')=="false") {
-      alert('You are not allowed to view this page');
+      //alert('You are not allowed to view this page');
+      this.router.navigate(['/FormSignIn']);
       return false;
     }
     return true;

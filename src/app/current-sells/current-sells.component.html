@@ -19,15 +19,21 @@
     ></div>
     <div class="card-text">
       <span class="date"></span>
-      <p>
+      <p style="font-weight: 800;">
         Price:
-        {{ item["price"] }} ETH
-      </p>
-      <p>Or</p>
-      <p>
+        {{ item["price"] }} ETH Or
         {{ item["price"] * (BinanceObject?.price || 0) | number: "1.0-0" }}$
       </p>
-      <p *ngIf="item['sold'] == true">Sold or Canceled</p>
+
+      <p style="font-weight: bold">Address:</p>
+      <p>{{ propertiesAddresses[i] }}</p>
+
+      <p style="font-weight: bold">area:</p>
+      <p>{{ propertiesAreas[i] }}m²</p>
+
+      <p style="font-weight: 800; color: #ff0000" *ngIf="item['sold'] == true">
+        Sold or Canceled
+      </p>
     </div>
     <div class="card-stats">
       <div class="stat">

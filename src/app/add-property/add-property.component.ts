@@ -38,7 +38,7 @@ export class AddPropertyComponent implements OnInit {
 
   public async onSubmit() {
     console.log('_idAuthenticated', this._DataServiceService._idAuthenticated);
-    this.IdAuthenticated = this._DataServiceService.getidAuthenticated();
+    this.IdAuthenticated = localStorage.getItem('User');
     console.log('this.profileForm before', this.profileForm.value);
     console.log('TITRE', this.profileForm['value']['titre']);
     this.profileForm.patchValue({

@@ -1,17 +1,37 @@
-<div style="background-image: url('../../assets/imgs/BackGroundImg.png');
-min-height: 100%;" class="wrapper">
-  <div *ngFor="let propretie of myPropreties | async; let i=index;" class="card">
-    <div [ngClass]="{
-      'card-image-apartement': propertiesTypes[i] === 'Apartement',
-      'card-image-land': propertiesTypes[i] === 'Land',
-      'card-image-garage': propertiesTypes[i] === 'Garage',
-      'card-image-bureau': propertiesTypes[i] === 'Office',
-      'card-image-villa': propertiesTypes[i] === 'Villa',
-      'card-image-villa': propertiesTypes[i] === 'Villa',
-      'card-image-maison': propertiesTypes[i] === 'House'
-    }"></div>
+<div
+  style="
+    background-image: url('../../assets/imgs/BackGroundImg.png');
+    min-height: 100%;
+  "
+  class="wrapper"
+>
+  <div
+    *ngFor="let propretie of myPropreties | async; let i = index"
+    class="card"
+  >
+    <div
+      [ngClass]="{
+        'card-image-apartement': propertiesTypes[i] === 'Apartement',
+        'card-image-land': propertiesTypes[i] === 'Land',
+        'card-image-garage': propertiesTypes[i] === 'Garage',
+        'card-image-bureau': propertiesTypes[i] === 'Office',
+        'card-image-villa': propertiesTypes[i] === 'Villa',
+        'card-image-villa': propertiesTypes[i] === 'Villa',
+        'card-image-maison': propertiesTypes[i] === 'House'
+      }"
+    ></div>
     <div class="card-text">
       <span class="date"></span>
-      <p>Bought with {{ propretie["price"] }} ETH or {{ propretie["price"] * (BinanceObject?.price || 0) | number: "1.0-0"}}$</p>
+      <p style="font-weight: bold">
+        Bought with {{ propretie["price"] }} ETH or
+        {{
+          propretie["price"] * (BinanceObject?.price || 0) | number: "1.0-0"
+        }}$
+      </p>
+      <p style="font-weight: bold">address:</p>
+      <p>{{ propertiesAddresses[i] }}</p>
+      <p style="font-weight: bold">area:</p>
+      <p>{{ propertiesAreas[i] }} m²</p>
     </div>
+  </div>
 </div>
